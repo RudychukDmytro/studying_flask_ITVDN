@@ -1,0 +1,450 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Film API",
+      "description": "API for managing films and actors",
+      "version": "1.0.0"
+    },
+    "basePath": "/",
+    "schemes": ["http", "https"],
+    "paths": {
+      "/smoke": {
+        "get": {
+          "tags": ["smoke"],
+          "summary": "Check if the API is working",
+          "responses": {
+            "200": {
+              "description": "API is working"
+            }
+          }
+        }
+      },
+      "/films": {
+        "get": {
+          "tags": ["films"],
+          "summary": "Get a list of all films",
+          "responses": {
+            "200": {
+              "description": "List of films",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Film"
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": ["films"],
+          "summary": "Create a new film",
+          "parameters": [
+            {
+              "name": "film",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/FilmInput"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Film created successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            }
+          }
+        }
+      },
+      "/films/{uuid}": {
+        "get": {
+          "tags": ["films"],
+          "summary": "Get details of a film by UUID",
+          "parameters": [
+            {
+              "name": "uuid",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "format": "uuid"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Film details",
+              "schema": {
+                "$ref": "#/definitions/Film"
+              }
+            },
+            "404": {
+              "description": "Film not found"
+            }
+          }
+        },
+        "put": {
+          "tags": ["films"],
+          "summary": "Update a film by UUID",
+          "parameters": [
+            {
+              "name": "uuid",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "name": "film",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/FilmInput"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Film updated successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "404": {
+              "description": "Film not found"
+            }
+          }
+        },
+        "patch": {
+          "tags": ["films"],
+          "summary": "Partially update a film by UUID",
+          "parameters": [
+            {
+              "name": "uuid",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "name": "film",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/FilmPatchInput"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Film updated successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "404": {
+              "description": "Film not found"
+            }
+          }
+        },
+        "delete": {
+          "tags": ["films"],
+          "summary": "Delete a film by UUID",
+          "parameters": [
+            {
+              "name": "uuid",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "format": "uuid"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Film deleted successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "404": {
+              "description": "Film not found"
+            }
+          }
+        }
+      },
+      "/actors": {
+        "get": {
+          "tags": ["actors"],
+          "summary": "Get a list of all actors",
+          "responses": {
+            "200": {
+              "description": "List of actors",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Actor"
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": ["actors"],
+          "summary": "Create a new actor",
+          "parameters": [
+            {
+              "name": "actor",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/ActorInput"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Actor created successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            }
+          }
+        }
+      },
+      "/actors/{uuid}": {
+        "get": {
+          "tags": ["actors"],
+          "summary": "Get details of an actor by UUID",
+          "parameters": [
+            {
+              "name": "uuid",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "format": "uuid"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Actor details",
+              "schema": {
+                "$ref": "#/definitions/Actor"
+              }
+            },
+            "404": {
+              "description": "Actor not found"
+            }
+          }
+        },
+        "put": {
+          "tags": ["actors"],
+          "summary": "Update an actor by UUID",
+          "parameters": [
+            {
+              "name": "uuid",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "name": "actor",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/ActorInput"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Actor updated successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "404": {
+              "description": "Actor not found"
+            }
+          }
+        },
+        "patch": {
+          "tags": ["actors"],
+          "summary": "Partially update an actor by UUID",
+          "parameters": [
+            {
+              "name": "uuid",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "name": "actor",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/ActorPatchInput"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Actor updated successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "404": {
+              "description": "Actor not found"
+            }
+          }
+        },
+        "delete": {
+          "tags": ["actors"],
+          "summary": "Delete an actor by UUID",
+          "parameters": [
+            {
+              "name": "uuid",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "format": "uuid"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Actor deleted successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "404": {
+              "description": "Actor not found"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Film": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string"
+          },
+          "release_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "distributed_by": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "length": {
+            "type": "integer"
+          },
+          "rating": {
+            "type": "number"
+          }
+        }
+      },
+      "FilmInput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "release_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "distributed_by": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "length": {
+            "type": "integer"
+          },
+          "rating": {
+            "type": "number"
+          }
+        },
+        "required": ["title", "release_date", "distributed_by", "description"]
+      },
+      "FilmPatchInput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "release_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "distributed_by": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "length": {
+            "type": "integer"
+          },
+          "rating": {
+            "type": "number"
+          }
+        }
+      },
+      "Actor": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "birth_date": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "ActorInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "birth_date": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "required": ["name", "birth_date"]
+      },
+      "ActorPatchInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "birth_date": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      }
+    }
+  }
+  
